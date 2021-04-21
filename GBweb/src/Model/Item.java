@@ -1,4 +1,4 @@
-package Model;
+ package Model;
 import java.sql.*;
 public class Item
 
@@ -11,7 +11,7 @@ public class Item
 				 Class.forName("com.mysql.jdbc.Driver");
 				
 				 //Provide the correct details: DBServer/DBName, username, password
-				 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "root", "");
+				 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/GadgetBadget", "root", "");
 			 }
 			 catch (Exception e)
 			 {
@@ -20,7 +20,7 @@ public class Item
 			 return con;
 		 }
 	
-	public String insertItem(String code, String name, String price, String desc)
+	public String insertItem(String ProductName, String ProductDesc, String ProductReg , String ProductPrice , Integer InventorID)
 		 {
 			String output = "";
 		 try
@@ -29,21 +29,21 @@ public class Item
 			 if (con == null)
 			 {return "Error while connecting to the database for inserting."; }
 			 // create a prepared statement
-			 String query = " insert into items(`itemID`,`itemCode`,`itemName`,`itemPrice`,`itemDesc`)"
+			 String query = " insert into products(`ProductName`,`ProductDesc`,`ProductReg`,`ProductPrice`,InventorID)"
 			 + " values (?, ?, ?, ?, ?)";
 			 
 			 PreparedStatement preparedStmt = con.prepareStatement(query);
 			 // binding values
-			 preparedStmt.setInt(1, 0);
-			 preparedStmt.setString(2, code);
-			 preparedStmt.setString(3, name);
-			 preparedStmt.setDouble(4, Double.parseDouble(price));
-			 preparedStmt.setString(5, desc);
+			 preparedStmt.setString(1,ProductName);
+			 preparedStmt.setString(2, ProductDesc);
+			 preparedStmt.setString(3, ProductReg);
+			 preparedStmt.setString(4, ProductPrice);
+			 preparedStmt.setInt(5, InventorID);
+			 
 			// execute the statement
-			
 			 preparedStmt.execute();
 			 con.close();
-			 output = "Inserted successfully";
+			 output = "Item Inserted successfully";
 		 }
 		 catch (Exception e)
 		 	{
@@ -62,12 +62,12 @@ public class Item
 		 {return "Error while connecting to the database for reading."; }
 		 
 		 // Prepare the html table to be displayed
-		 output = "<table border='1'><tr><th>Item Code</th><th>Item Name</th>" +
-		 "<th>Item Price</th>" +
-		 "<th>Item Description</th>" +
+		 output = "<table border='1'><tr><th>Product Code</th><th>ProductName</th>" +
+		 "<th>ProductDesc</th>" +
+		 "<th>ProductReg</th>" +"<th>ProductPrice</th>" +"<th>InventorID</th>" +
 		 "<th>Update</th><th>Remove</th></tr>";
 		
-		 String query = "select * from items";
+		 String query = "select * from products";
 		 
 		 Statement stmt = con.createStatement();
 		 
@@ -77,24 +77,26 @@ public class Item
 		 
 		 while (rs.next())
 		 {
-		 String itemID = Integer.toString(rs.getInt("itemID"));
-		 String itemCode = rs.getString("itemCode");
-		 String itemName = rs.getString("itemName");
-		 String itemPrice = Double.toString(rs.getDouble("itemPrice"));
-		 String itemDesc = rs.getString("itemDesc");
+		 String ProductID = Integer.toString(rs.getInt("ProductID"));
+		 String ProductName = rs.getString("ProductName");
+		 String ProductDesc = rs.getString("ProductDesc");
+		 String ProductReg = rs.getString("ProductReg");
+		 String ProductPrice = rs.getString("ProductPrice");
+		 String InventorID = Integer.toString(rs.getInt("InventorID"));
 		 
 		 // Add into the html table
-		 output += "<tr><td>" + itemCode + "</td>";
-		 output += "<td>" + itemName + "</td>";
-		 output += "<td>" + itemPrice + "</td>";
-		 output += "<td>" + itemDesc + "</td>";
+		 output += "<tr><td>" + ProductID + "</td>";
+		 output += "<td>" + ProductName + "</td>";
+		 output += "<td>" + ProductDesc + "</td>";
+		 output += "<td>" + ProductReg + "</td>";
+		 output += "<td>" + ProductPrice + "</td>";
+		 output += "<td>" + InventorID + "</td>";
 		 // buttons
 		 
 		 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-		 + "<td><form method='post' action='items.jsp'>"
-		 + "<input name='btnRemove' type='submit' value='Remove'
-		 class='btn btn-danger'>"
-		 + "<input name='itemID' type='hidden' value='" + itemID
+		 + "<td><form method='post' action='item.jsp'>"
+		 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
+		 + "<input name='itemID' type='hidden' value='" + ProductID
 		 + "'>" + "</form></td></tr>";
 		 }
 		 con.close();
@@ -104,12 +106,12 @@ public class Item
 	}
 	 catch (Exception e)
 	 {
-		 output = "Error while reading the items.";
+		 output = "Error while reading the products.";
 		 System.err.println(e.getMessage());
 	 }
 	 	return output;
 	 }
-public String updateItem(String ID, String code, String name, String price, String desc)
+public String updateItem(Integer ProductID, String ProductName, String ProductDesc, String ProductReg, String ProductPrice, Integer InventorID)
 	
 	 {
 	 String output = "";
@@ -120,15 +122,16 @@ public String updateItem(String ID, String code, String name, String price, Stri
 		 {return "Error while connecting to the database for updating."; }
 		 
 		 // create a prepared statement
-		 String query = "UPDATE items SET itemCode=?,itemName=?,itemPrice=?,itemDesc=? WHERE itemID=?";
+		 String query = "UPDATE products SET ProductName=?,ProductDesc=?,ProductReg=?,ProductPrice=?,InventorID=? WHERE ProductID=?";
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 
 		 // binding values
-		 preparedStmt.setString(1, code);
-		 preparedStmt.setString(2, name);
-		 preparedStmt.setDouble(3, Double.parseDouble(price));
-		 preparedStmt.setString(4, desc);
-		 preparedStmt.setInt(5, Integer.parseInt(ID));
+		 preparedStmt.setString(1, ProductName);
+		 preparedStmt.setString(2, ProductDesc);
+		 preparedStmt.setString(3, ProductReg);
+		 preparedStmt.setString(4, ProductPrice);
+		 preparedStmt.setInt(5, InventorID);
+		 preparedStmt.setInt(6, ProductID);
 		 
 		 // execute the statement
 		 preparedStmt.execute();
@@ -143,7 +146,7 @@ public String updateItem(String ID, String code, String name, String price, Stri
 	 }
 	 return output;
 	 }
-public String deleteItem(String itemID)
+public String deleteItem(Integer ProductID)
 	 {
 	 String output = "";
 	 try
@@ -153,11 +156,11 @@ public String deleteItem(String itemID)
 		 {return "Error while connecting to the database for deleting."; }
 		 
 		 // create a prepared statement
-		 String query = "delete from items where itemID=?";
+		 String query = "delete from products where ProductID=?";
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 
 		 // binding values
-		 preparedStmt.setInt(1, Integer.parseInt(itemID));
+		 preparedStmt.setInt(1,ProductID);
 		 
 		 // execute the statement
 		 preparedStmt.execute();

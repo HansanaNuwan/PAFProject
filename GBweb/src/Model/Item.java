@@ -111,8 +111,8 @@ public class Item
 	 }
 	 	return output;
 	 }
-public String updateItem(Integer ProductID, String ProductName, String ProductDesc, String ProductReg, String ProductPrice, Integer InventorID)
-	
+public String updateItem( Integer ProductID, String ProductName, String ProductDesc, String ProductReg, String ProductPrice, Integer InventorID)
+
 	 {
 	 String output = "";
 	 try

@@ -15,6 +15,9 @@ import org.jsoup.nodes.Document;
 	public class ItemService
 	{
 		 Item itemObj = new Item();
+		 
+		 //read data
+		 
 		 @GET
 		 @Path("/")
 		 @Produces(MediaType.TEXT_HTML)
@@ -23,6 +26,8 @@ import org.jsoup.nodes.Document;
 		  {
 		  return itemObj.readItems();
 		  }
+		 
+		 //insert data
 		 
 		 @POST
 		 @Path("/")
@@ -37,5 +42,29 @@ import org.jsoup.nodes.Document;
 		  String output = itemObj.insertItem(ProductName, ProductDesc, ProductReg, ProductPrice,InventorID);
 		 return output;
 		 }
+		 
+		 //update data
+		 
+		 @PUT
+		 @Path("/")
+		 @Consumes(MediaType.APPLICATION_JSON)
+		 @Produces(MediaType.TEXT_PLAIN)
+		 public String updateItem(String itemData)
+		 {
+		 //Convert the input string to a JSON object
+		  JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
+		 //Read the values from the JSON object
+		  int ProductID = itemObject.get("ProductID").getAsInt();
+		  String ProductName = itemObject.get("ProductName").getAsString();
+		  String ProductDesc = itemObject.get("ProductDesc").getAsString();
+		  String ProductReg = itemObject.get("ProductReg").getAsString();
+		  String ProductPrice = itemObject.get("ProductPrice").getAsString();
+		  int InventorID = itemObject.get("InventorID").getAsInt();
+		  String output = itemObj.updateItem( ProductID,ProductName, ProductDesc, ProductReg, ProductPrice,InventorID);
+		 return output;
+		 }
+
+		 
+		 
 
 	}

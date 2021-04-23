@@ -18,8 +18,24 @@ import org.jsoup.nodes.Document;
 		 @GET
 		 @Path("/")
 		 @Produces(MediaType.TEXT_HTML)
+		
 		 public String readItems()
 		  {
 		  return itemObj.readItems();
 		  }
+		 
+		 @POST
+		 @Path("/")
+		 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+		 @Produces(MediaType.TEXT_PLAIN)
+		 public String insertItem(@FormParam("ProductName") String ProductName,
+		  @FormParam("ProductDesc") String ProductDesc,
+		  @FormParam("ProductReg") String ProductReg,
+		  @FormParam("ProductPrice") String ProductPrice,
+		  @FormParam("InventorID") Integer InventorID)
+		 {
+		  String output = itemObj.insertItem(ProductName, ProductDesc, ProductReg, ProductPrice,InventorID);
+		 return output;
+		 }
+
 	}

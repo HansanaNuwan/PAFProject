@@ -62,7 +62,7 @@ public class Item
 		 {return "Error while connecting to the database for reading."; }
 		 
 		 // Prepare the html table to be displayed
-		 output = "<table border='1'><tr><th>Product Code</th><th>ProductName</th>" +
+		 output = "<table border='1'><tr><th>Product ID</th><th>ProductName</th>" +
 		 "<th>ProductDesc</th>" +
 		 "<th>ProductReg</th>" +"<th>ProductPrice</th>" +"<th>InventorID</th>" +
 		 "<th>Update</th><th>Remove</th></tr>";
@@ -146,7 +146,7 @@ public String updateItem( Integer ProductID, String ProductName, String ProductD
 	 }
 	 return output;
 	 }
-public String deleteItem(Integer ProductID)
+public String deleteItem(String ProductID)
 	 {
 	 String output = "";
 	 try
@@ -160,11 +160,12 @@ public String deleteItem(Integer ProductID)
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 
 		 // binding values
-		 preparedStmt.setInt(1,ProductID);
+		 preparedStmt.setInt(1, Integer.parseInt(ProductID));
 		 
 		 // execute the statement
 		 preparedStmt.execute();
 		 con.close();
+		 
 		 output = "Deleted successfully";
 	 }
 	 catch (Exception e)

@@ -46,7 +46,7 @@ public class Product {
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while inserting the item."; 
+		 output = "Error while inserting the product."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -90,7 +90,7 @@ public class Product {
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while reading the items."; 
+		 output = "Error while reading the product."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -117,7 +117,7 @@ public class Product {
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while updating the item."; 
+		 output = "Error while updating the product."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -143,7 +143,7 @@ public class Product {
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while deleting the item."; 
+		 output = "Error while deleting the product."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 

@@ -30,7 +30,7 @@ public class ProductService {
 		@Produces(MediaType.TEXT_HTML) 
 		public String readItems() 
 		 { 
-			 return itemObj.readItems();
+			 return itemObj.readProduct();
 		 } 
 		
 		
@@ -43,7 +43,7 @@ public class ProductService {
 		public String insertItem(@FormParam("reviewID") String reviewID )
 		
 		{ 
-		 String output = itemObj.insertItem(reviewID); 
+		 String output = itemObj.insertProduct(reviewID); 
 		return output; 
 		}
 
@@ -61,7 +61,7 @@ public class ProductService {
 		 String productID = itemObject.get("productID").getAsString(); 
 		 String reviewID = itemObject.get("reviewID").getAsString();
 		 
-		 String output = itemObj.updateItem(productID, reviewID); 
+		 String output = itemObj.updateProduct(productID, reviewID); 
 		return output; 
 		}
 		
@@ -77,7 +77,7 @@ public class ProductService {
 		 
 		//Read the value from the element <productID>
 		 String productID = doc.select("productID").text(); 
-		 String output = itemObj.deleteItem(productID); 
+		 String output = itemObj.deleteProduct(productID); 
 		return output; 
 		}
 

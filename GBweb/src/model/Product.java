@@ -24,7 +24,7 @@ public class Product {
 		 return con; 
 	 } 
 	
-	public String insertItem(String reviewID) 
+	public String insertProduct(String reviewID) 
 	 { 
 		 String output = ""; 
 		 try
@@ -52,7 +52,7 @@ public class Product {
 		 return output; 
 	 } 
 	
-	public String readItems() 
+	public String readProduct() 
 	{ 
 		 String output = ""; 
 		 try
@@ -96,7 +96,7 @@ public class Product {
 		 return output; 
 	 }
 	
-	public String updateItem(String productID, String reviewID)
+	public String updateProduct(String productID, String reviewID)
 	 { 
 		 String output = ""; 
 		 try
@@ -123,7 +123,7 @@ public class Product {
 		 return output; 
 	 } 
 	
-	public String deleteItem(String productID) 
+	public String deleteProduct(String productID) 
 	 { 
 		 String output = ""; 
 		 try

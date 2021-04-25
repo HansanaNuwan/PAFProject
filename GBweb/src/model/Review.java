@@ -57,7 +57,7 @@ public class Review
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for reading."; } 
-		 // Prepare the html table to be displayed
+		 // Prepare the html table to display data
 		 output = "<table border='1'><tr><th>review ID</th><th>project Code</th><th> review </th>" +
 		 "<th>decision</th>" +
 		 "<th>Update</th><th>Remove</th></tr>"; 
@@ -145,6 +145,7 @@ public class Review
 		 } 
 		 catch (Exception e) 
 		 { 
+			 //display error 
 		 output = "Error while deleting the item."; 
 		 System.err.println(e.getMessage()); 
 		 } 
